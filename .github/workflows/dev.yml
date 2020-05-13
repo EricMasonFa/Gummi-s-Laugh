@@ -17,7 +17,10 @@ jobs:
       - name: Install Linux packages
         run: sudo apt update && sudo apt install -y --no-install-recommends libopenal1 libopenal-dev libasound2-dev libx11-dev libx11-xcb-dev libxkbcommon-dev libxkbcommon-x11-dev libxtst-dev
       - name: Build
-        run: make bin
+        run: |
+          make bin
+          ls ./bin
+
   windows:
     runs-on: windows-latest
     steps:
@@ -27,7 +30,10 @@ jobs:
           go-version: 1.13
       - uses: actions/checkout@v2
       - name: Build
-        run: make bin
+        run: |
+          make bin
+          ls ./bin
+
   macos:
     runs-on: macos-latest
     steps:
@@ -37,4 +43,6 @@ jobs:
           go-version: 1.13
       - uses: actions/checkout@v2
       - name: Build
-        run: make bin
+        run: |
+          make bin
+          ls ./bin
