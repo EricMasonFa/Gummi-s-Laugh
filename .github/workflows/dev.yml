@@ -20,9 +20,7 @@ jobs:
         env:
           GOOS: linux
           GOARCH: amd64
-        run: |
-          make bin
-          ls ./bin
+        run: make bin
 
   windows:
     runs-on: windows-latest
@@ -36,9 +34,7 @@ jobs:
         env:
           GOOS: windows
           GOARCH: amd64
-        run: |
-          make bin
-          ls ./bin
+        run: make bin
 
   macos:
     runs-on: macos-latest
@@ -52,6 +48,4 @@ jobs:
         env:
           GOOS: darwin
           GOARCH: amd64
-        run: |
-          make bin
-          ls ./bin
+        run: make bin
