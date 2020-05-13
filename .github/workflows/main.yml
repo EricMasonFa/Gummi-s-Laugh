@@ -20,6 +20,9 @@ jobs:
         run: sudo apt update && sudo apt install -y --no-install-recommends libopenal1 libopenal-dev libasound2-dev libx11-dev libx11-xcb-dev libxkbcommon-dev libxkbcommon-x11-dev libxtst-dev
 
       - name: Build
+        env:
+          GOOS: linux
+          GOARCH: amd64
         run: make bin
 
       - name: Create Release
@@ -55,6 +58,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
+        env:
+          GOOS: windows
+          GOARCH: amd64
         run: make bin
 
       - name: Create Release
@@ -90,6 +96,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
+        env:
+          GOOS: darwin
+          GOARCH: amd64
         run: make bin
 
       - name: Create Release
