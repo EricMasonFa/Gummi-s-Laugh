@@ -1,14 +1,16 @@
 package main
 
 import (
-	"os"
 	"sync"
 	"time"
 
 	"github.com/faiface/beep"
 	"github.com/faiface/beep/mp3"
 	"github.com/faiface/beep/speaker"
+	"github.com/rakyll/statik/fs"
 	"github.com/robotn/gohook"
+
+	_ "gummi/statik"
 )
 
 var (
@@ -54,7 +56,18 @@ func playsound() {
 	for {
 		mLock.RLock()
 		if modifier && lKeyPressed {
-			mp3file, err := os.Open("./laugh.mp3")
+			statikFS, err := fs.New()
+			if err != nil {
+				panic(err)
+			}
+
+			// Access individual files by their paths.
+			mp3file, err := statikFS.Open("/laugh.mp3")
+			if err != nil {
+				panic(err)
+			}
+			defer mp3file.Close()
+
 			if err != nil {
 				panic(err)
 			}
