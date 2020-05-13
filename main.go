@@ -15,9 +15,9 @@ import (
 )
 
 var (
-	modifier    bool
 	lKeyPressed bool
 	mLock       sync.RWMutex
+	keys        = []rune{108, 76}
 )
 
 func main() {
@@ -26,41 +26,44 @@ func main() {
 	go playsound()
 
 	for ev := range EvChan {
-		if modifier && !lKeyPressed {
-			if ev.Kind == hook.KeyDown && ev.Rawcode == 37 {
+		if !lKeyPressed {
+			if ev.Kind == hook.KeyDown && contains(keys, ev.Keychar) {
 				mLock.Lock()
+				fmt.Println("lkey true")
 				lKeyPressed = true
 				mLock.Unlock()
 				continue
 			}
 		}
-		if ev.Kind == hook.KeyUp && ev.Rawcode == 37 {
+
+		if ev.Kind == hook.KeyUp && ev.Keycode == 38 {
 			lKeyPressed = false
 		}
-		if ev.Kind == hook.KeyHold {
-			fmt.Println(ev.Keycode)
-			fmt.Println(ev.Rawcode)
-		}
-		if ev.Kind == hook.KeyHold && (ev.Rawcode == 55 || ev.Rawcode == 56) {
-			mLock.Lock()
-			modifier = true
-			mLock.Unlock()
-		}
 
-		if ev.Kind == hook.KeyUp && (ev.Rawcode == 55 || ev.Rawcode == 56) {
-			mLock.Lock()
-			modifier = false
-			mLock.Unlock()
+		if ev.Kind == hook.KeyUp {
+			fmt.Println(ev.Keycode)
+			fmt.Println(ev.Keychar)
 		}
 	}
 
 	hook.End()
 }
 
+func contains(hystack []rune, needle rune) bool {
+	for _, item := range hystack {
+		if item == needle {
+			return true
+		}
+	}
+
+	return false
+}
+
 func playsound() {
 	for {
 		mLock.RLock()
-		if modifier && lKeyPressed {
+		//if modifier && lKeyPressed {
+		if lKeyPressed {
 			statikFS, err := fs.New()
 			if err != nil {
 				panic(err)
