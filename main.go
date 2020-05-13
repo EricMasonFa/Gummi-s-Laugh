@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sync"
 	"time"
 
@@ -29,7 +28,6 @@ func main() {
 		if !lKeyPressed {
 			if ev.Kind == hook.KeyDown && contains(keys, ev.Keychar) {
 				mLock.Lock()
-				fmt.Println("lkey true")
 				lKeyPressed = true
 				mLock.Unlock()
 				continue
@@ -38,11 +36,6 @@ func main() {
 
 		if ev.Kind == hook.KeyUp && ev.Keycode == 38 {
 			lKeyPressed = false
-		}
-
-		if ev.Kind == hook.KeyUp {
-			fmt.Println(ev.Keycode)
-			fmt.Println(ev.Keychar)
 		}
 	}
 
