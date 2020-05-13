@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: dist
-          path: ./bin/gummi-${{ steps.build_ubuntu.env.GOOS }}-${{ steps.build_ubuntu.env.GOARCH }}
+          path: ./bin/gummi-linux-amd64
 
   windows:
     runs-on: windows-latest
@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: dist
-          path: ./bin/gummi-${{ steps.build_windows.env.GOOS }}-${{ steps.build_windows.env.GOARCH }}
+          path: ./bin/gummi-windows-amd64
 
   macos:
     runs-on: macos-latest
@@ -78,7 +78,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: dist
-          path: ./bin/gummi-${{ steps.build_macos.env.GOOS }}-${{ steps.build_macos.env.GOARCH }}
+          path: ./bin/gummi-darwin-amd64
 
   create_release:
     runs-on: ubuntu-latest
