@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"time"
 
@@ -36,13 +37,17 @@ func main() {
 		if ev.Kind == hook.KeyUp && ev.Rawcode == 37 {
 			lKeyPressed = false
 		}
-		if ev.Kind == hook.KeyHold && ev.Rawcode == 55 {
+		if ev.Kind == hook.KeyHold {
+			fmt.Println(ev.Keycode)
+			fmt.Println(ev.Rawcode)
+		}
+		if ev.Kind == hook.KeyHold && (ev.Rawcode == 55 || ev.Rawcode == 56) {
 			mLock.Lock()
 			modifier = true
 			mLock.Unlock()
 		}
 
-		if ev.Kind == hook.KeyUp && ev.Rawcode == 55 {
+		if ev.Kind == hook.KeyUp && (ev.Rawcode == 55 || ev.Rawcode == 56) {
 			mLock.Lock()
 			modifier = false
 			mLock.Unlock()
